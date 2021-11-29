@@ -1,4 +1,4 @@
-tupla_teste = ( (1,1),(1,3),(3,1),(2,2),(4,2) ) 
+tupla_teste = ( (1,3),(1,4),(2,1),(3,2) ) 
 
 # Função que checa se existem elementos em R que possuem seu x igual ao y do par dado
 def checar_se_y1_e_igual_a_x2(R, y):
@@ -34,12 +34,13 @@ def transitiva(R):
                 pares_necessarios.append(par_necessario)
                 e_transitiva = False
     
-    # Caso ocorra tudo bem no loop acima, a relação é transitiva
-    return [e_transitiva, pares_necessarios]
+    # Retorna uma lista com uma variavel que diz se a relação é transitiva ou não
+    # e uma tupla com os pares necessários para que a relação seja transitiva (vazia caso seja transitiva)
+    return [e_transitiva, tuple(pares_necessarios)]
 
 result = transitiva(tupla_teste)
 if result[0]:
     print("É transitiva")
 else:
     print("Não é transitiva")
-    print("Pares necessários: ", result[1])
+    print("Fecho transitivo necessário:", tupla_teste + result[1])
