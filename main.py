@@ -1,26 +1,39 @@
+from re import sub
 from checar_transitividade import transitiva
+from print_ascii import print_ascii_art
 
 def main():
-    R = tratar_input(input())
-    result = transitiva(R)
-    if result[0]:
-        print("É transitiva")
-    else:
-        print('Não é transitiva')
-        print('Fecho de R: ', R + result[1])
-    return
+    # Pedir uma relação R ao usuário
+    # Ex: (1,3),(1,4),(2,1),(3,2)
+    print_ascii_art()
+    R = tratar_entrada(input('Digite a relação R: '))
+    # print(R)
 
-def tratar_input(texto: str):
-    elementos = []
-    texto_sanitizado = texto.strip().split('),')
-    
-    for ts in texto_sanitizado:
-        nums = ts.replace('(','').split(',')
-        e = []
-        for n in nums:
-            e.append(int(n.replace(')', '')))
-        elementos.append(tuple(e))
-    return elementos
+    # Checar se R é transitiva
+    result = transitiva(R)
+
+    # Imprimir o resultado
+    if result[0]:
+        print('\nA relação R é transitiva')
+    else:
+        print('\nA relação R não é transitiva')
+        print('Fecho transitivo de R:', f"{R + result[1]}".replace("'", ''))
+
+def tratar_entrada(entrada: str):
+    # Remove os caracters especiais
+    entrada = sub('[^),0-9a-zA-Z]', '', entrada)
+
+    # Relação R
+    R = []
+
+    # Separar os elementos da relação R
+    for elemento in entrada.split('),'):
+        # Separar os elementos do par
+        par = tuple([x.replace(')', '') for x in elemento.split(',')])
+        # Adicionar o par na relação R se ele não estiver repetido
+        if not par in R:
+            R.append(par)
+    return R
 
 if __name__ == '__main__':
     main()

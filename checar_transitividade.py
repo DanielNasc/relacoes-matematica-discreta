@@ -29,7 +29,7 @@ def transitiva(R):
             par_necessario = (r[0], b[1])
             if not par_necessario in R:
                 # Se não existir, a relação não é transitiva
-                pares_necessarios.append(par_necessario)
+                if par_necessario not in pares_necessarios: pares_necessarios.append(par_necessario)
                 e_transitiva = False
     
     # Retorna uma lista com uma variavel que diz se a relação é transitiva ou não
