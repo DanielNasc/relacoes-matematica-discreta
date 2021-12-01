@@ -13,11 +13,11 @@ def main():
     result = transitiva(R)
 
     # Imprimir o resultado
-    if result[0]:
+    if result['e_transitiva']:
         print('\nA relação R é transitiva')
     else:
         print('\nA relação R não é transitiva')
-        print('Fecho transitivo de R:', f"{R + result[1]}".replace("'", ''))
+        print('Fecho transitivo de R:', f"{R + result['pares_necessarios']}".replace("'", ''))
 
 def tratar_entrada(entrada: str):
     # Remove os caracters especiais
