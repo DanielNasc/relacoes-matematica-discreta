@@ -35,9 +35,9 @@ def transitiva(R):
     if not e_transitiva:
         # Se a relação não é transitiva, então os pares ordenados que faltam são adicionados recursivamente
         return {'e_transitiva': e_transitiva, 
-                'pares_necessarios': transitiva(R + pares_necessarios)['pares_necessarios'] + pares_necessarios}
+                'pares_necessarios':  pares_necessarios + transitiva(R + pares_necessarios)['pares_necessarios']}
     else:
         # Retorna uma lista com uma variavel que diz se a relação é transitiva ou não
         # e uma tupla com os pares necessários para que a relação seja transitiva (vazia caso seja transitiva)
-        return {'transitiva': e_transitiva, 'pares_necessarios': pares_necessarios}
+        return {'e_transitiva': e_transitiva, 'pares_necessarios': pares_necessarios}
 
