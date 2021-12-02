@@ -22,5 +22,12 @@ def print_result(R, prop, result, fecho):
     print("\nA relação R não é {}".format(prop))
     print("Fecho {}".format(fecho), f"{R + result['pares_faltando']}".replace("'", ''))
 
-def print_antissimetria(assimetria):
-  print("\nA relação é antissimétrica" if assimetria else "\nA relação não é antissimétrica")
+def print_antissimetria(R, antissimetrica):
+  if antissimetrica['antissimetrica']:
+    print("\nA relação R é antissimétrica")
+  else:
+    print("\nA relação R não é antissimétrica")
+    print("Redução antissimétrica: {}"
+          .format([x for x in R if x not in antissimetrica['pares_para_remover']])
+          .replace("'", ''))
+    

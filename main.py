@@ -1,10 +1,8 @@
 from re import sub
 from sys import exit
 from simple_term_menu import TerminalMenu
-from checar_transitividade import checar_transitividade
-from checar_reflexividade import reflexiva_S_em_S, reflexiva_S_em_T
-from checar_simetria import *
-from prints import *
+from prints import print_ascii_art
+from result_class import Result
 
 def main():
     print_ascii_art()
@@ -18,14 +16,8 @@ def main():
         print("\nA relação R não é uma relação de {}".format('S em T' if opcao == 1 else 'S em S'))
         exit(1)
 
-    if opcao == 0:
-        print_result(R, 'reflexiva', reflexiva_S_em_S(S, R), 'reflexivo')
-    else:
-        print_result(R, 'reflexiva', reflexiva_S_em_T(S, T, R), 'reflexivo')
-        
-    print_result(R, 'transitiva', checar_transitividade(R), 'transitivo')
-    print_result(R, 'simetrica', checar_simetria(R), 'simétrico')
-    print_antissimetria(checar_antissimetria(R))
+    result = Result(R, S, opcao, T)
+    result.prints()
     
 
 def tratar_relacao():
@@ -50,10 +42,9 @@ def get_conjunto(c):
     conjuntos = input("Digite o conjunto {}: ".format(c))
     conjuntos = sub('[^0-9a-zA-Z,]', '', conjuntos)
     conjuntos = conjuntos.split(',')
-    return conjuntos
+    return list(set(conjuntos))
 
 def checar_se_R_e_relacao(R, S, T):
-
     for par in R:
         if not par[0] in S or not par[1] in T:
             return False

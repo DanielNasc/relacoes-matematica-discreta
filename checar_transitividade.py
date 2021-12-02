@@ -10,7 +10,6 @@ def checar_se_y1_e_igual_a_x2(R, y):
 
 # Checa se a Relação R é transitiva
 def checar_transitividade(R):
-    transitiva = True
     pares_faltando = []
     # Percorre todos os elementos de R
     for r in R:
@@ -30,8 +29,8 @@ def checar_transitividade(R):
             if not par_necessario in R:
                 # Se não existir, a relação não é transitiva
                 if par_necessario not in pares_faltando: pares_faltando.append(par_necessario)
-                transitiva = False
     
+    transitiva = len(pares_faltando) == 0
     if not transitiva:
         # Se a relação não é transitiva, então os pares ordenados que faltam são adicionados recursivamente
         return {'transitiva': transitiva, 

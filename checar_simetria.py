@@ -23,5 +23,9 @@ def checar_antissimetria(R):
         par_invertido = (par[1], par[0])
         if par_invertido in R and par != par_invertido:
             pares_para_remover.append(par_invertido)
+            del R[R.index(par_invertido)]
     
-    return len(pares_para_remover) == 0
+    return {
+        'antissimetrica': len(pares_para_remover) == 0,
+        'pares_para_remover': pares_para_remover
+    }
