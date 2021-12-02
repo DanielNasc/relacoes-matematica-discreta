@@ -1,31 +1,65 @@
-S_test = [1, 2, 3 , 4]
-R_test = [(3, 3), (2, 2)]
+S_test = [1, 2, 3 , 4, 10]
+T_test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+R_test = [(3, 3), (2, 2), (5, 5), (1, 3)]
 
-def reflexiva(S, R: list):
-    e_reflexiva = True
-
+def reflexiva_S_em_S(S, R):
+    # Cria uma lista com os elementos de S, tal que para todo x em S, é criado um par (x, x)
     pares_necessarios = []
     for e in S:
         pares_necessarios.append((e, e))
 
+    # Verifica se os todos os pares (x, x) existem em R
+    e_reflexiva, pares_faltando = checar_pares_necessarios(R, pares_necessarios)
+
+    # Se R é uma relação reflexiva, então retorna um dict com 'e_reflexiva' como True e 'pares_faltando' como uma lista vazia
+    # Caso contrário, retorna um dict com 'e_reflexiva' como False e 'pares_faltando' como a lista de pares que faltam
+
+    return {
+        "e_reflexiva": e_reflexiva,
+        'pares_faltando': pares_faltando
+    }
+
+def reflexiva_S_em_T(S, T, R):
+
+    # Cria uma lista com os elementos iguais de S e T, tal que para todo x em S e T, é criado um par (x, x)
+    pares_necessarios = []
+    for e in S:
+        if e in T:
+            pares_necessarios.append((e, e))
+    
+    # Verifica se os todos os pares (x, x) existem em R
+    e_reflexiva, pares_faltando = checar_pares_necessarios(R, pares_necessarios)
+
+    # Se R é uma relação reflexiva, então retorna um dict com 'e_reflexiva' como True e 'pares_faltando' como uma lista vazia
+    # Caso contrário, retorna um dict com 'e_reflexiva' como False e 'pares_faltando' como a lista de pares que faltam
+    return {
+        "e_reflexiva": e_reflexiva,
+        'pares_faltando': pares_faltando
+    }
+
+    
+
+def checar_pares_necessarios(R, pares_necessarios):
+    # Verifica se os todos os pares (x, x) existem em R
+    e_reflexiva = True
     pares_faltando = []
     for par in pares_necessarios:
+        # Se o par não existir em R, ele é adicionado à lista de pares que faltam
         if not par in R:
             e_reflexiva = False
             pares_faltando.append(par)
+    return [e_reflexiva, pares_faltando]
 
-    if e_reflexiva:
-        return {
-            "e_reflexiva": e_reflexiva,
-            'pares_faltando': pares_faltando
-        }
-    else: 
-        return {
-            'e_reflexiva': e_reflexiva,
-            'pares_faltando': pares_faltando + reflexiva(S, R + pares_faltando)['pares_faltando']
-        }
-            
-result = reflexiva(S_test, R_test)
+# Testes        
+# result = reflexiva_S_em_S(S_test, R_test)
+
+# if result['e_reflexiva']:
+#     print('E reflexiva')
+# else:
+#     print('Nao e reflexiva')
+#     print('Fecho reflexivo: ', R_test + result['pares_faltando'])
+
+result = reflexiva_S_em_T(S_test, T_test, R_test)
 
 if result['e_reflexiva']:
     print('E reflexiva')
