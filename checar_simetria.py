@@ -1,6 +1,3 @@
-# from prints import *
-# R_test = [(2,2),(3,3)]
-
 def checar_simetria(R):
     """
     Função que checa se uma lista é simétrica.
@@ -19,11 +16,8 @@ def checar_simetria(R):
         'pares_faltando': pares_faltando
     }
 
-def checar_assimetria(R):
-    """
-    Função que checa se uma lista é assimétrica.
-    """
-    
+def checar_antissimetria(R):
+
     pares_para_remover = []
     for par in R:
         par_invertido = (par[1], par[0])
@@ -31,6 +25,3 @@ def checar_assimetria(R):
             pares_para_remover.append(par_invertido)
     
     return len(pares_para_remover) == 0
-
-# print_result(R_test, 'simetrica', checar_simetria(R_test), 'simétrico')
-# print_assimetria(checar_assimetria(R_test))

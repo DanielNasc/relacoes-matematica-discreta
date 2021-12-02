@@ -25,7 +25,7 @@ def main():
         
     print_result(R, 'transitiva', checar_transitividade(R), 'transitivo')
     print_result(R, 'simetrica', checar_simetria(R), 'simétrico')
-    print_assimetria(checar_assimetria(R))
+    print_antissimetria(checar_antissimetria(R))
     
 
 def tratar_relacao():
