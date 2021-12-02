@@ -1,27 +1,29 @@
 from re import sub
-from checar_transitividade import transitiva
-from print_ascii import print_ascii_art
+from simple_term_menu import TerminalMenu
+from checar_transitividade import checar_transitividade
+from checar_reflexividade import reflexiva_S_em_S, reflexiva_S_em_T
+from prints import *
 
 def main():
-    # Pedir uma relação R ao usuário
-    # Ex: (1,3),(1,4),(2,1),(3,2)
     print_ascii_art()
-    R = tratar_entrada(input('Digite a relação R: '))
-    # print(R)
 
-    # Checar se R é transitiva
-    result = transitiva(R)
+    opcao = TerminalMenu(["S em S", "S em T"], title="Qual modelo de relação você deseja?").show()
+    S = get_conjunto('S')
+    T = get_conjunto('T') if opcao == 1 else None
+    R = tratar_relacao()
 
-    # Imprimir o resultado
-    if result['e_transitiva']:
-        print('\nA relação R é transitiva')
+    if opcao == 0:
+        print_result(R, 'reflexiva', reflexiva_S_em_S(S, R), 'reflexivo')
     else:
-        print('\nA relação R não é transitiva')
-        print('Fecho transitivo de R:', f"{R + result['pares_necessarios']}".replace("'", ''))
+        print_result(R, 'reflexiva', reflexiva_S_em_T(S, T, R), 'reflexivo')
+        
+    print_result(R, 'transitiva', checar_transitividade(R), 'transitivo')
+    
 
-def tratar_entrada(entrada: str):
+def tratar_relacao():
     # Remove os caracters especiais
-    entrada = sub('[^),0-9a-zA-Z]', '', entrada)
+    print("\nFormato do input: (a,b),(b,c),(a,c)")
+    entrada = sub('[^),0-9a-zA-Z]', '', input('Digite a relação R: '))
 
     # Relação R
     R = []
@@ -34,6 +36,12 @@ def tratar_entrada(entrada: str):
         if not par in R:
             R.append(par)
     return R
+
+def get_conjunto(c):
+    conjuntos = input("Digite o conjunto {}: ".format(c))
+    conjuntos = sub('[^0-9a-zA-Z,]', '', conjuntos)
+    conjuntos = conjuntos.split(',')
+    return conjuntos
 
 if __name__ == '__main__':
     main()
