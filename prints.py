@@ -21,3 +21,6 @@ def print_result(R, prop, result, fecho):
   else:
     print("\nA relação R não é {}".format(prop))
     print("Fecho {}".format(fecho), f"{R + result['pares_faltando']}".replace("'", ''))
+
+def print_assimetria(assimetria):
+  print("\nA relação é assimétrica" if assimetria else "\nA relação não é assimétrica")

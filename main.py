@@ -2,6 +2,7 @@ from re import sub
 from simple_term_menu import TerminalMenu
 from checar_transitividade import checar_transitividade
 from checar_reflexividade import reflexiva_S_em_S, reflexiva_S_em_T
+from checar_simetria import *
 from prints import *
 
 def main():
@@ -18,6 +19,8 @@ def main():
         print_result(R, 'reflexiva', reflexiva_S_em_T(S, T, R), 'reflexivo')
         
     print_result(R, 'transitiva', checar_transitividade(R), 'transitivo')
+    print_result(R, 'simetrica', checar_simetria(R), 'simétrico')
+    print_assimetria(checar_assimetria(R))
     
 
 def tratar_relacao():
